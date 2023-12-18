@@ -1,0 +1,36 @@
+---
+import { getLocale } from "astro-i18n-aut";
+
+export async function getStaticPaths() {
+  return [
+    { params: { post: "hello" } },
+    { params: { post: "world" } },
+  ];
+}
+
+
+const locale = getLocale(Astro.url);
+
+let title: string;
+switch (locale) {
+  case "es":
+    title = "¡Hola Mundo!";
+    break;
+  case "fr":
+    title = "Bonjour Monde!";
+    break;
+  default:
+    title = "Hello World!";
+}
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+<head>
+  <meta charset="UTF-8" />
+  <title>{title}</title>
+</head>
+<body>
+  <h1>{locale} | {title}</h1>
+</body>
+</html>
