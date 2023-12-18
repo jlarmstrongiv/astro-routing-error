@@ -5,7 +5,8 @@
   - Works as expected
 - Navigate to `http://localhost:4321/fr/blog/world/`
   - 404 Error
-- Kill dev server
+- Kill dev server in the terminal
+- Restart the dev server in the terminal
 - Reload `http://localhost:4321/fr/blog/world/`
   - Works as expected
 - Navigate to `http://localhost:4321/blog/world/`
