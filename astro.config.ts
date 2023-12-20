@@ -1,13 +1,5 @@
 import { defineConfig } from "astro/config";
-import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
-import sitemap from "@astrojs/sitemap";
-
-const defaultLocale = "en";
-const locales = {
-  en: "en-US", // the `defaultLocale` value must present in `locales` keys
-  es: "es-ES",
-  fr: "fr-CA",
-};
+import path from "path";
 
 export default defineConfig({
   site: "https://example.com/",
@@ -16,16 +8,20 @@ export default defineConfig({
     format: "directory",
   },
   integrations: [
-    i18n({
-      locales,
-      defaultLocale,
-    }),
-    sitemap({
-      i18n: {
-        locales,
-        defaultLocale,
+    {
+      name: "astro-routing-bug",
+      hooks: {
+        "astro:config:setup": async ({ injectRoute }) => {
+          injectRoute({
+            entrypoint: path.join(process.cwd(), "src/pages/blog/[post].astro"),
+            pattern: "/es/blog/[post]",
+          });
+          injectRoute({
+            entrypoint: path.join(process.cwd(), "src/pages/blog/[post].astro"),
+            pattern: "/fr/blog/[post]",
+          });
+        },
       },
-      filter: filterSitemapByDefaultLocale({ defaultLocale }),
-    }),
+    },
   ],
 });
